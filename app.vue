@@ -1,28 +1,32 @@
-<script>
-import { mockedData } from "./util/mockdata.js";
+<script setup lang="ts">
+import '~/assets/css/style.css'
 
-export default {
-  data() {
-    return {
-      dataAvailable: false, // Initially, data is not available
-      data: null, // Placeholder for the data
-    };
-  },
-  mounted() {
-    // Assuming mockedData is loaded asynchronously
-    // Simulate an asynchronous operation
-    // setTimeout(() => {
-    this.dataAvailable = true;
-    this.data = mockedData[0];
-    // }, 1000);
-  },
-};
+useSeoMeta({
+  title: 'QuizFlash',
+  ogTitle: 'QuizFlash',
+  description: 'This is QuizFlash, a quick-input flashcard app.',
+  ogDescription: 'This is QuizFlash, a quick-input flashcard app.',
+  // ogImage: 'https://example.com/image.png',
+  // twitterCard: 'summary_large_image',
+})
 </script>
+
 
 <template>
   <div>
-    <p v-if="dataAvailable">{{ data.question }}</p>
-    <p v-else>Loading data...</p>
-    <p>hej</p>
+    <NuxtPage />
   </div>
 </template>
+
+<style>
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.4s;
+}
+
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+  filter: blur(1rem);
+}
+</style>

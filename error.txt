@@ -1,5 +1,6 @@
 <template>
     <div>
         <p>404, an error occurred</p>
+        <NuxtLink to="/">Home page</NuxtLink>
     </div>
 </template>
