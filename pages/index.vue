@@ -1,50 +1,32 @@
 <script setup lang="ts">
-import { quizData } from "../util/mockedData.js";
-let quizzes: any;
+let quizzes: any[] = [];
+let unparsedQuizzes: string | null;
 let textValue: string;
 let quizTitle: string;
 
 onMounted(() => {
-    // 1. I need to fetch quizzes from localstorage and display them
-    let unparsedQuizzes = localStorage.getItem("Quizzes")
+    unparsedQuizzes = localStorage.getItem("Quizzes")
     if (unparsedQuizzes) {
         quizzes = JSON.parse(unparsedQuizzes);
         console.log(quizzes);
         return quizzes
-    } else {
-        console.log("No quizzes");
-        return
     }
 })
 
-// 2. When a user creates a quiz I need to attach it to the end of the currently existing quiz object.
-
 function createQuiz(title: string, quiz: string) {
-    const newQuiz = [
-        {
-            id: () => { quizzes ? quizzes.length++ : 1 },
-            title: title,
-            questions:
-            {
-
-            }
-        }]
-
     const lines = quiz.split('\n');
-
     // Initialize an array to store the flashcard objects.
     const flashcards = [];
-
-    // Iterate through the lines and extract questions and answers.
     let currentFlashcard = { question: '', answer: '' };
 
+    // Iterate through the lines and extract questions and answers.
     for (const line of lines) {
-        if (line.startsWith('Question:')) {
+        if (line.startsWith('Question: ')) {
             // Extract the question text.
-            currentFlashcard.question = line.slice('Question:'.length);
-        } else if (line.startsWith('Answer:')) {
+            currentFlashcard.question = line.slice('Question: '.length);
+        } else if (line.startsWith('Answer: ')) {
             // Extract the answer text and push the current flashcard.
-            currentFlashcard.answer = line.slice('Answer:'.length);
+            currentFlashcard.answer = line.slice('Answer: '.length);
             flashcards.push(currentFlashcard);
 
             // Reset the current flashcard.
@@ -52,18 +34,22 @@ function createQuiz(title: string, quiz: string) {
         }
     }
 
-    console.log(flashcards);
+    const newQuiz = {
+        id: quizzes ? quizzes.length++ : 1,
+        title: title,
+        questions: flashcards
+    }
 
-    // let quizzes = localStorage.getItem("Quizzes");
-    // if (quizzes === null) {
-    //     localStorage.setItem("Quizzes", "")
-    // } else {
-    //     console.log(quizzes);
-    // }
-    // const stringified = JSON.stringify(quizData);
-    // localStorage.setItem("Quizzes", stringified)
-    // console.log(stringified);
-    // console.log(JSON.parse(stringified));
+    unparsedQuizzes = localStorage.getItem("Quizzes")
+    if (unparsedQuizzes === null) {
+        const stringifiedQuiz = JSON.stringify([newQuiz]);
+        localStorage.setItem("Quizzes", stringifiedQuiz)
+    } else {
+        let parsedQuizzes = JSON.parse(unparsedQuizzes)
+        parsedQuizzes.push(newQuiz)
+        const stringifiedQuizzes = JSON.stringify(parsedQuizzes);
+        localStorage.setItem("Quizzes", stringifiedQuizzes)
+    }
 };
 </script>
 
@@ -83,10 +69,10 @@ function createQuiz(title: string, quiz: string) {
                     like your quiz to have. Or why not ask ChatGPT to make the questions in the correct format and then
                     simply copy + paste!
                 </p>
-                <div v-if="quizzes">
-                    <p v-for="(quiz, index) in quizzes" :key="index">{{ quiz.title }} </p>
-                </div>
-                <p v-else>There are currently no stored quizzes in this browser.</p>
+                <template v-if="quizzes[0]">
+                    <p v-for="(quiz, index) in quizzes" :key="index">{{ quiz.title }}</p>
+                </template>
+                <p v-else>There are currently no stored quizzes on this browser.</p>
             </div>
             <form class="flex justify-between shadow-lg p-8 flex-wrap gap-4 flex-col"
                 @submit.prevent="createQuiz(quizTitle, textValue)">
