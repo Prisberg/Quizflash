@@ -9,16 +9,35 @@ useSeoMeta({
   // ogImage: 'https://example.com/image.png',
   // twitterCard: 'summary_large_image',
 })
+
+function toggleMode() {
+  const bodyDiv = document.getElementById('bodyDiv')
+  if (bodyDiv?.classList.contains("invert")) {
+    bodyDiv.classList.remove("invert")
+  } else {
+    bodyDiv?.classList.add("invert")
+  }
+}
 </script>
 
 
-<template>
-  <div>
+<template >
+  <div id="bodyDiv" class='invert'>
+    <nav class="absolute flex justify-end w-full px-8">
+      <button type="button" aria-label="Toggle color mode" class="text-4xl" @click="toggleMode">
+        ☀️
+      </button>
+    </nav>
     <NuxtPage />
   </div>
 </template>
 
 <style>
+#bodyDiv {
+  color: black;
+  background-color: rgb(253, 246, 236);
+}
+
 .page-enter-active,
 .page-leave-active {
   transition: all 0.4s;
