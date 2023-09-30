@@ -4,6 +4,9 @@ export default defineNuxtConfig({
     preset: 'vercel-edge',
   },
   devtools: { enabled: true },
+  app: {
+    pageTransition: {name: 'page', mode: 'out-in'}
+  },
   css: ['~/assets/css/main.css'],
   postcss: {
     plugins: {

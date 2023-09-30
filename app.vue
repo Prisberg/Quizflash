@@ -1,3 +1,18 @@
+<template >
+  <div id="bodyDiv" class='invert'>
+    <header class="flex py-2 justify-around items-center w-full">
+      <h1 class="whitespace-nowrap underline">Quiz<span class="italic">Flash</span>
+      </h1>
+      <nav class="flex">
+        <button type="button" aria-label="Toggle color mode" class="text-4xl" @click="toggleMode">
+          ☀️
+        </button>
+      </nav>
+    </header>
+    <NuxtPage />
+  </div>
+</template>
+
 <script setup lang="ts">
 import '~/assets/css/style.css'
 
@@ -20,22 +35,11 @@ function toggleMode() {
 }
 </script>
 
-
-<template >
-  <div id="bodyDiv" class='invert'>
-    <nav class="absolute flex justify-end w-full px-8">
-      <button type="button" aria-label="Toggle color mode" class="text-4xl" @click="toggleMode">
-        ☀️
-      </button>
-    </nav>
-    <NuxtPage />
-  </div>
-</template>
-
 <style>
 #bodyDiv {
   color: black;
   background-color: rgb(253, 246, 236);
+  transition: filter ease 500ms;
 }
 
 .page-enter-active,
@@ -49,3 +53,4 @@ function toggleMode() {
   filter: blur(1rem);
 }
 </style>
+

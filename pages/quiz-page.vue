@@ -6,7 +6,6 @@ let data = quizData
 
 <template>
     <div>
-        <h1 class="whitespace-nowrap">Quiz page</h1>
         <div class="flex flex-col justify-center content-center flex-wrap h-full w-full">
             <p v-if="data">{{ data[0] }}</p>
             <p v-else>Loading data...</p>
