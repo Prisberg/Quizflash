@@ -1,0 +1,95 @@
+/* Normalize */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  margin: 0;
+  color: inherit;
+  font-weight: medium;
+  /* font-family: ${theme.font.family.heading}; */
+}
+
+a {
+  /* color: ${theme.color.primary}; */
+  text-decoration: none;
+}
+
+p,
+.p,
+li {
+  font-size: 1em;
+
+  @media (min-width: 1300px) {
+    font-size: 1em;
+  }
+}
+
+h1,
+.h1 {
+  line-height: 1.083;
+  font-size: 2.25rem;
+
+  /* font-weight: ${theme.font.weight.medium}; */
+  @media (min-width: 1300px) {
+    line-height: 1.1842;
+    font-size: 4.25rem;
+  }
+}
+
+h2,
+.h2 {
+  line-height: 1.1875;
+  font-size: 1.75rem;
+
+  /* font-weight: ${theme.font.weight.medium}; */
+  @media (min-width: 1300px) {
+    line-height: 1.1481;
+    font-size: 3rem;
+  }
+}
+
+h3,
+.h3 {
+  line-height: 1.214;
+  font-size: 1.5rem;
+
+  /* font-weight: ${theme.font.weight.medium}; */
+  @media (min-width: 1300px) {
+    line-height: 1.263;
+    font-size: 2.375rem;
+  }
+}
+
+h4,
+.h4 {
+  line-height: 1.333;
+  font-size: 1.25rem;
+  font-weight: normal;
+
+  @media (min-width: 1300px) {
+    line-height: 1.286;
+    font-size: 1.75rem;
+  }
+}
+
+h5,
+.h5,
+h6,
+.h6 {
+  line-height: 1.333;
+  font-weight: normal;
+  font-size: 1.125rem;
+
+  @media (min-width: 1300px) {
+    line-height: 1.556;
+    font-size: 1.125rem;
+  }
+}
