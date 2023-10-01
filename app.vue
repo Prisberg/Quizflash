@@ -8,8 +8,8 @@
       </NuxtLink>
       <nav class="flex">
         <button type="button" aria-label="Toggle color mode" class="text-4xl" @click="toggleMode">
-          <span v-if="bright">🔆</span>
-          <span v-else>🔅</span>
+          <span v-if="bright">◉</span>
+          <span v-else>◎</span>
         </button>
       </nav>
     </header>
