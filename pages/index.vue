@@ -13,14 +13,16 @@
                     like your quiz to have. Or why not ask ChatGPT to make the questions in the correct format and then
                     simply copy + paste!
                 </p>
-                <ul>
-                    <li v-for="(quiz, index) in quizzes" :key="index">
-                        <NuxtLink v-if="quiz" :to="'/quiz-page/' + quiz.id">
-                            <!-- @vue-expect-error -->
-                            {{ quiz.title }}
-                        </NuxtLink>
-                    </li>
-                </ul>
+                <div>
+                    <h3>Your quizzes:</h3>
+                    <ul class="flex flex-col items-center gap-2 text-lg">
+                        <li v-for="(quiz, index) in quizzes" :key="index">
+                            <NuxtLink class="hover:font-bold" v-if="quiz" :to="'/quiz/' + quiz.id">
+                                {{ quiz.title }}
+                            </NuxtLink>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <form class="flex justify-between shadow-lg p-8 flex-wrap gap-4 flex-col"
                 @submit.prevent="createQuiz(quizTitle, textValue)">
@@ -46,13 +48,10 @@
 
 <script setup lang="ts">
 import { uuid } from 'vue-uuid';
+import { useQuizzes } from '../composables/index';
 
 // Lesson learned: If you want to render data in the DOM the variable needs to be reactive in order for the DOM to get updated when the variable does.
-let quizzes = ref({
-    id: null,
-    title: "There are currently no quizzes stored on this browser",
-    questions: null
-});
+const quizzes = useQuizzes();
 let unparsedQuizzes: string | null;
 let textValue: string;
 let quizTitle: string;
@@ -105,4 +104,4 @@ function createQuiz(title: string, quiz: string) {
     }
 };
 
-</script>
+</script>../composables/states.js
