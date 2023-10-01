@@ -17,9 +17,12 @@
                     <h3>Your quizzes:</h3>
                     <ul class="flex flex-col items-center gap-2 text-lg">
                         <li v-for="(quiz, index) in quizzes" :key="index">
-                            <NuxtLink class="hover:font-bold" v-if="quiz" :to="'/quiz/' + quiz.id">
+                            <NuxtLink v-if="quiz.id" class="hover:font-bold" :to="'/quiz/' + quiz.id">
                                 {{ quiz.title }}
                             </NuxtLink>
+                            <p v-else>
+                                There are currently no quizzes stored on this browser
+                            </p>
                         </li>
                     </ul>
                 </div>
@@ -95,12 +98,13 @@ function createQuiz(title: string, quiz: string) {
     if (unparsedQuizzes === null) {
         const stringifiedQuiz = JSON.stringify([newQuiz]);
         localStorage.setItem("Quizzes", stringifiedQuiz)
+        quizzes.value.push(newQuiz);
     } else {
         let freshQuizzes = JSON.parse(unparsedQuizzes)
         freshQuizzes.push(newQuiz)
-        quizzes.value = freshQuizzes;
         const stringifiedQuizzes = JSON.stringify(freshQuizzes);
         localStorage.setItem("Quizzes", stringifiedQuizzes)
+        quizzes.value = freshQuizzes;
     }
 };
 
