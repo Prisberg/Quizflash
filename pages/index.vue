@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div class="items-center flex flex-col justify-center gap-4 content-center flex-wrap h-full w-full">
-            <div class="w-4/5 md:w-7/12 max-w-md flex flex-col gap-4 justify-center p-2">
+        <div class="flex flex-col justify-center gap-4 content-center flex-wrap h-full w-full">
+            <div class="flex flex-col gap-4 justify-center w-full max-w-md p-4">
                 <p>
                     For personal use I made this quick flashcard app where one can simply write questions (specifically
                     "Question:") followed by answers (specifically "Answer:") in order to create a quiz. Make sure to use a
