@@ -14,8 +14,9 @@
                     simply copy + paste!
                 </p>
                 <ul>
-                    <li>
-                        <NuxtLink to="" v-for="(quiz, index) in quizzes" :key="index">
+                    <li v-for="(quiz, index) in quizzes" :key="index">
+                        <NuxtLink v-if="quiz" :to="'/quiz-page/' + quiz.id">
+                            <!-- @vue-expect-error -->
                             {{ quiz.title }}
                         </NuxtLink>
                     </li>
@@ -44,18 +45,22 @@
 </template>
 
 <script setup lang="ts">
-let quizzes = useState('quizzes', () => [{ title: "There are currently no quizzes stored on this browser" }]);
+import { uuid } from 'vue-uuid';
+
+// Lesson learned: If you want to render data in the DOM the variable needs to be reactive in order for the DOM to get updated when the variable does.
+let quizzes = ref({
+    id: null,
+    title: "There are currently no quizzes stored on this browser",
+    questions: null
+});
 let unparsedQuizzes: string | null;
 let textValue: string;
 let quizTitle: string;
 
-
 onMounted(() => {
     unparsedQuizzes = localStorage.getItem("Quizzes")
     if (unparsedQuizzes) {
-        quizzes = JSON.parse(unparsedQuizzes);
-        console.log(quizzes);
-
+        quizzes.value = JSON.parse(unparsedQuizzes);
         return quizzes
     }
 })
@@ -82,7 +87,7 @@ function createQuiz(title: string, quiz: string) {
     }
 
     const newQuiz = {
-        // id: quizzes ? quizzes.length++ : 1,
+        id: uuid.v4(),
         title: title,
         questions: flashcards
     }
@@ -94,8 +99,10 @@ function createQuiz(title: string, quiz: string) {
     } else {
         let freshQuizzes = JSON.parse(unparsedQuizzes)
         freshQuizzes.push(newQuiz)
+        quizzes.value = freshQuizzes;
         const stringifiedQuizzes = JSON.stringify(freshQuizzes);
         localStorage.setItem("Quizzes", stringifiedQuizzes)
     }
 };
+
 </script>

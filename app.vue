@@ -1,5 +1,5 @@
 <template >
-  <div id="bodyDiv" class='invert'>
+  <div id="bodyDiv" class='invert min-h-screen'>
     <header class="flex py-2 justify-around items-center w-full">
       <h1 class="whitespace-nowrap underline">Quiz<span class="italic">Flash</span>
       </h1>
