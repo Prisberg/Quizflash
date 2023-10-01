@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="flex flex-col justify-center gap-4 content-center flex-wrap h-full w-full">
+        <div class="items-center flex flex-col justify-center gap-4 content-center flex-wrap h-full w-full">
             <div class="w-4/5 md:w-7/12 max-w-md flex flex-col gap-4 justify-center p-2">
                 <p>
                     For personal use I made this quick flashcard app where one can simply write questions (specifically
