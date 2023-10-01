@@ -14,12 +14,15 @@
                     simply copy + paste!
                 </p>
                 <div>
-                    <h3>Your quizzes:</h3>
-                    <ul class="flex flex-col items-center gap-2 text-lg">
+                    <h3 class="text-center">Your quizzes:</h3>
+                    <ul class="flex flex-col gap-2 text-lg">
                         <li v-for="(quiz, index) in quizzes" :key="index">
-                            <NuxtLink v-if="quiz.id" class="hover:font-bold" :to="'/quiz/' + quiz.id">
-                                {{ quiz.title }}
-                            </NuxtLink>
+                            <div v-if="quiz.id" class="flex gap-4 justify-end">
+                                <NuxtLink class="hover:font-bold" :to="'/quiz/' + quiz.id">
+                                    {{ quiz.title }}
+                                </NuxtLink>
+                                <button type="button" @click="removeQuiz(quiz.id)">❌</button>
+                            </div>
                             <p v-else>
                                 There are currently no quizzes stored on this browser
                             </p>
@@ -32,12 +35,12 @@
                 <div class="flex flex-col">
                     <label for="quizTitle">Quiz title</label>
                     <input placeholder='The funny guy' required minlength="3" maxlength="25" name="quizTitle" type="text"
-                        class="outline rounded flex justify-between p-2" v-model="quizTitle">
+                        class="outline outline-1 rounded flex justify-between p-2" v-model="quizTitle">
                 </div>
                 <div class="flex flex-col">
                     <label for="quizContent">Quiz content</label>
                     <textarea required minlength="10" name="quizContent" v-model="textValue" id="quizCreator" cols="30"
-                        rows="10" class="outline rounded p-2"
+                        rows="10" class="outline outline-1 rounded p-2"
                         placeholder="Question: How many programmers does it take to screw in a lightbuld?&#10;Answer: None, that' s a hardware problem.">
                         </textarea>
                 </div>
@@ -66,6 +69,18 @@ onMounted(() => {
         return quizzes
     }
 })
+
+function removeQuiz(idToRemove: string) {
+    let indexToRemove = quizzes.value.findIndex(item => item.id === idToRemove);
+    if (indexToRemove !== -1) {
+        // Use splice to remove the item from the array
+        quizzes.value.splice(indexToRemove, 1);
+        const stringifiedQuizzes = JSON.stringify(quizzes.value);
+        localStorage.setItem("Quizzes", stringifiedQuizzes)
+    } else {
+        console.log("Quiz with id " + idToRemove + " not found.");
+    }
+}
 
 function createQuiz(title: string, quiz: string) {
     const lines = quiz.split('\n');
