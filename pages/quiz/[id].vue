@@ -2,8 +2,8 @@
     <div>
         <div class="flex flex-col justify-center content-center items-center flex-wrap h-full w-full gap-4 p-8">
             <h3>{{ selectedQuiz.title }}</h3>
-            <div @click="e => toggleCard(e)" class="flip-card" v-for="questions, index in selectedQuiz.questions"
-                :key="index">
+            <div @click="e => toggleCard(e)" class="flip-card cursor-pointer"
+                v-for="questions, index in selectedQuiz.questions" :key="index">
                 <div class="flip-card-inner rounded">
                     <div class="flip-card-front flex justify-center items-center rounded bg-orange-50">
                         <p>{{ questions.question }}</p>
